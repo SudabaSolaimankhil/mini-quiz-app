@@ -1,7 +1,6 @@
 import "./index.css";
 
 import Quiz from "./components/quiz";
-import Results from "./components/result";
 
 function App() {
   return (
@@ -9,7 +8,6 @@ function App() {
       <h1>Quiz App</h1>
 
       <Quiz />
-      {/* <Results /> */}
     </div>
   );
 }

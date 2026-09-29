@@ -36,6 +36,12 @@ function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isQuizFinish, setQuizFinish] = useState(false);
 
+  function restartQuiz() {
+    setQuizFinish(false);
+    setCurrentQuestion(0);
+    setResponse([]);
+  }
+
   function handleSelectOption(opt) {
     if (opt !== "") {
       setResponse((prevResponses) => {
@@ -65,7 +71,13 @@ function Quiz() {
   }
 
   if (isQuizFinish) {
-    return <Results userAnswers={userResponse} questionBank={questionBank} />;
+    return (
+      <Results
+        userAnswers={userResponse}
+        questionBank={questionBank}
+        restartQuizFunction={restartQuiz}
+      />
+    );
   }
   return (
     <div>

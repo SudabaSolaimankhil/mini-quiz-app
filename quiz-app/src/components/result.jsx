@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Results({ userAnswers, questionBank }) {
+function Results({ userAnswers, questionBank, restartQuizFunction }) {
   //   console.log(questionBank);
 
   function getScore() {
@@ -20,7 +20,9 @@ function Results({ userAnswers, questionBank }) {
       <p>
         Your Score: {userFinalScore}/{questionBank.length}
       </p>
-      <button className="restart-button">Restart Quiz</button>
+      <button className="restart-button" onClick={restartQuizFunction}>
+        Restart Quiz
+      </button>
     </div>
   );
 }
