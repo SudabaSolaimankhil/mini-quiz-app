@@ -61,11 +61,17 @@ function Quiz() {
   }
   return (
     <div>
-      <h2>question1</h2>
+      <h2>question {currentQuestion + 1}</h2>
       <p className="question">{questionBank[currentQuestion].question}</p>
 
       {questionBank[currentQuestion].options.map((option) => (
-        <button className="option" onClick={() => handleSelectOption(option)}>
+        <button
+          className={
+            "option" +
+            (userResponse[currentQuestion] === option ? " selected" : "")
+          }
+          onClick={() => handleSelectOption(option)}
+        >
           {option}
         </button>
       ))}
@@ -85,7 +91,7 @@ function Quiz() {
             currentQuestion === questionBank.length - 1
           }
         >
-          Next
+          {currentQuestion === questionBank.length - 1 ? "Finish Quiz" : "Next"}
         </button>
       </div>
     </div>
