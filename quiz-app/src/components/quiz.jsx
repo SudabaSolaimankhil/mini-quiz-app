@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Results from "./result";
 
 function Quiz() {
   const questionBank = [
@@ -33,6 +34,7 @@ function Quiz() {
 
   const [userResponse, setResponse] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isQuizFinish, setQuizFinish] = useState(false);
 
   function handleSelectOption(opt) {
     if (opt !== "") {
@@ -45,10 +47,12 @@ function Quiz() {
   }
 
   function GoToNextQuestion() {
-    console.log(userResponse);
+    // console.log(userResponse);
 
     if (currentQuestion < questionBank.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setQuizFinish(true);
     }
   }
 
@@ -58,6 +62,10 @@ function Quiz() {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
     }
+  }
+
+  if (isQuizFinish) {
+    return <Results userAnswers={userResponse} questionBank={questionBank} />;
   }
   return (
     <div>
@@ -76,7 +84,6 @@ function Quiz() {
         </button>
       ))}
 
-      <p>currentQuestion: {userResponse}</p>
       <div className="nav-buttons">
         <button
           onClick={GoToPreviouseQuestion}
@@ -86,10 +93,7 @@ function Quiz() {
         </button>
         <button
           onClick={GoToNextQuestion}
-          disabled={
-            !userResponse[currentQuestion] ||
-            currentQuestion === questionBank.length - 1
-          }
+          disabled={!userResponse[currentQuestion]}
         >
           {currentQuestion === questionBank.length - 1 ? "Finish Quiz" : "Next"}
         </button>
