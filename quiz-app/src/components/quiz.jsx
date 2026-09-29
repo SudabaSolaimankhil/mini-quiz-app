@@ -29,29 +29,64 @@ function Quiz() {
     },
   ];
 
-  const [selectedOption, setSelectedOptoin] = useState("none");
+  //   const [selectedOption, setSelectedOptoin] = useState("none");
+
+  const [userResponse, setResponse] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
   function handleSelectOption(opt) {
-    // console.log(opt);
-    // selectedOption = opt;
-    setSelectedOptoin(opt);
+    if (opt !== "") {
+      setResponse((prevResponses) => {
+        const updatedResponses = [...prevResponses];
+        updatedResponses[currentQuestion] = opt;
+        return updatedResponses;
+      });
+    }
   }
 
+  function GoToNextQuestion() {
+    console.log(userResponse);
+
+    if (currentQuestion < questionBank.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  }
+
+  function GoToPreviouseQuestion() {
+    console.log(userResponse);
+
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+    }
+  }
   return (
     <div>
       <h2>question1</h2>
-      <p className="question">{questionBank[0].question}</p>
+      <p className="question">{questionBank[currentQuestion].question}</p>
 
-      {questionBank[0].options.map((option) => (
+      {questionBank[currentQuestion].options.map((option) => (
         <button className="option" onClick={() => handleSelectOption(option)}>
           {option}
         </button>
       ))}
 
-      <p>{selectedOption}</p>
+      <p>currentQuestion: {userResponse}</p>
       <div className="nav-buttons">
-        <button className="">Previous</button>
-        <button className="">Next</button>
+        <button
+          onClick={GoToPreviouseQuestion}
+          disabled={currentQuestion === 0}
+        >
+          Previous
+        </button>
+        <button
+          onClick={GoToNextQuestion}
+          disabled={
+            !userResponse[currentQuestion] ||
+            currentQuestion === questionBank.length - 1
+          }
+        >
+          Next
+        </button>
       </div>
     </div>
   );
