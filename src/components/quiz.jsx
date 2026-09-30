@@ -100,10 +100,20 @@ function Quiz() {
   }
 
   return (
-    <div>
+    <div className="app-container">
       {/* Display the question number. */}
-      <h2>Question {currentQuestion + 1}</h2>
+      <p className="question-number">
+        Question {currentQuestion + 1} of {questionBank.length}
+      </p>
 
+      <div className="progress-container">
+        <div
+          className="progress-bar"
+          style={{
+            width: `${((currentQuestion + 1) / questionBank.length) * 100}%`,
+          }}
+        ></div>
+      </div>
       {/* Display the current question. */}
       <p className="question">{questionBank[currentQuestion].question}</p>
 
